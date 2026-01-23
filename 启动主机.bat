@@ -1,13 +1,18 @@
 @echo off
 chcp 65001 > nul
+cd /d "%~dp0"
 
 set SERVER_ADDR=SERVER_ADDR
 set SERVER_PORT=7000
 set LOCAL_PORT=1437
 set TOKEN=TOKEN
 
+echo 请以管理员权限运行此脚本
 echo 正在启动主机
 echo 大约需要10秒左右的时间
+
+netsh advfirewall firewall delete rule name="PVZOnline" > nul
+netsh advfirewall firewall add rule name="PVZOnline" dir=in action=allow protocol=udp localport=%LOCAL_PORT% profile=any > nul
 
 for /f "usebackq delims=" %%i in (`powershell -NoProfile -Command ^
   "$chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';" ^
