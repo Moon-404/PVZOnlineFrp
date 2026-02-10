@@ -27,7 +27,7 @@ set "FRPC_PATH=%~dp0frpc.exe"
 powershell -NoProfile -Command ^
   "Try { Add-MpPreference -ExclusionProcess '%FRPC_PATH%' -ErrorAction Stop; " ^
   "Write-Host '添加 Windows Defender 白名单完成:' '%FRPC_PATH%'; } " ^
-  "Catch { Write-Host '添加白名单失败，请自行添加白名单 ' }"
+  "Catch { Write-Host '添加 Windows Defender 白名单失败，请自行为' '%FRPC_PATH%' '添加白名单 ' }"
 
 netsh advfirewall firewall delete rule name="PVZOnline" > nul
 netsh advfirewall firewall add rule name="PVZOnline" dir=in action=allow protocol=udp localport=%LOCAL_PORT% profile=any > nul
